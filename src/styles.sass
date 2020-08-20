@@ -1,0 +1,142 @@
+$button-red-bg: #ff4655
+$button-line-color: #0f1923
+$button-top-line-height: 3px
+$button-width: 200px
+$button-height: 35px
+$button-container-height: calc(#{$button-height} + #{$button-top-line-height})
+
+@mixin makeButton($bg-color, $text-color, $hover-text-color, $invert-dot-color: false, $inverted-dot-color: "")
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: calc(#{$button-width} + 20px)
+  
+  &::before
+    content: ""
+    position: absolute
+
+    width: 100%
+    height: calc(50% - 10px)
+    border: 1px solid $bg-color
+    border-bottom: 0
+  
+  &::after
+    content: ""
+    position: absolute
+
+    bottom: 0
+    width: 100%
+    height: calc(50% - 10px)
+    border: 1px solid $bg-color
+    border-top: 0
+
+  > .valorant-button-container
+    position: relative
+    display: flex
+    width: $button-width
+    height: $button-container-height
+    overflow: hidden
+    border: 0
+    margin: 10px
+
+    > .valorant-button-line
+      position: absolute
+      top: 0
+      left: -180%
+      height: $button-container-height
+      width: 120%
+      background: $button-line-color
+      transition: left .3s ease-out
+      transform: skew(-15deg)
+      z-index: 1
+
+    > .text-wrapper
+      margin-top: $button-top-line-height
+      position: relative
+      padding: 10px
+      height: $button-height
+      border: 0
+      background: $bg-color
+      min-width: $button-width
+      font-weight: bold
+      color: $text-color
+      > span
+        display: block
+        position: relative
+        z-index: 2
+        transition: color .2s ease-out
+
+    &::before
+      content: ""
+      display: block
+      position: absolute
+      right: 0
+      width: 99%
+      height: $button-top-line-height
+      background: $bg-color
+
+    &::after
+      content: ""
+      position: absolute
+      display: block
+      width: 5px
+      height: 5px
+      background: $button-line-color
+      right: 0
+      bottom: 0
+
+      transition: background .2s ease-out
+
+      z-index: 1
+    
+    &:hover
+      > .valorant-button-line
+        left: -5%
+      
+      > .text-wrapper
+        > span
+          color: $hover-text-color
+      
+      @if $invert-dot-color
+        &::after
+          background: $inverted-dot-color
+
+
+*
+  box-sizing: border-box
+  outline: 0
+  padding: 0
+  margin: 0
+
+body
+  background: #fff
+
+button
+  cursor: pointer
+
+.container
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  padding-top: 30px
+
+  background: lighten(#ece8e1, 3%)
+
+.primary-button
+  @include makeButton($bg-color: $button-red-bg, $text-color: #fff, $hover-text-color: #fff)
+  
+.primary-button.-white
+  @include makeButton($bg-color: #ECE8E1, $text-color: $button-line-color,$hover-text-color: #f9f9f9, $invert-dot-color: true, $inverted-dot-color: #f9f9f9)
+
+.white-button-container
+  width: 100%
+  margin-top: 30px
+  padding: 30px
+  background: $button-red-bg
