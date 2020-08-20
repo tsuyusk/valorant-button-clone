@@ -1,5 +1,5 @@
 <p align="center">
- <img width=294px height=640px src="working-example.gif" alt="Working button example">
+ <img width=640px height=268px src="working-example.gif" alt="Working button example">
 </p>
 
 ## Valorant Button Clone 
